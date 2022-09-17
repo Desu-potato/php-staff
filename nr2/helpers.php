@@ -20,13 +20,9 @@ function check_what_letter($raw){
     $workingArray = explode('.', $raw);
 
     $workingInt =  $workingArray[0];
-    
+    $letterArray = array();
     $i = 0;
-    $row = 0;
-    if ($workingInt < 27)
-        {
-            return translate_number_to_letter($workingInt);
-        }
+
     while (TRUE){
         $bufor = 26**$i;
         if ($bufor >= $workingInt) {
@@ -36,51 +32,50 @@ function check_what_letter($raw){
         $i++;
 
     }
-    $letterArray = array();
-    for($i = $row-1; $i >= 0; $i--){
-        if ($workingInt < 27 && $i == 0 && $workingInt >= 1)
-        {
-            $letterArray[] = translate_number_to_letter($workingInt);
-            
+   
+
+    $Buffor = array();
+    $test = $workingInt;
+    while(TRUE){
+        $betanextvalue = floor($test/(26));
+        $letter = $test%(26);
+        if($betanextvalue == 0){
+            $Buffor[] = $letter;
             break;
         }
-
-        if($workingArray[0] == (26**$row)){
-            for($x = $row-1; $x >= 0; $x--){
-                $letterArray[] = translate_number_to_letter(26);
-            }
+        $Buffor[] = $letter;
+        if($test < 27){
+            $Buffor[] = $letter;
             break;
         }
-        if ($workingInt < 27 && $i == 0)
-        {
-            if($workingInt <= 1){
-                $letterArray[] = translate_number_to_letter(26);
-                break;
-            }
-            if($workingInt >= 1){
-                $letterArray[] = translate_number_to_letter($workingInt);
-                break;
-            }
-            
-        }
-
-        $letter = $workingInt/(26**$i);
-        if($letter > floor($letter)){
-            if($letter <= 1){
-                $letterArray[] =  translate_number_to_letter(1);
-            }
-            if($letter >= 1){
-                $letterArray[] =  translate_number_to_letter(floor($letter));
-            }
-        }
-        $nextvalue = $workingInt%(26**$i);
-        $workingInt = $nextvalue;
-
-        
-
-
+        $test = $betanextvalue;
     }
-    return $letterArray;
+    
+   
+    if($Buffor[0] == 0){
+        $Buffor[0] = 26;
+        for($x = 1; $x <= count($Buffor)-1; $x++){
+            if($Buffor[$x]-1 == -1){
+                $Buffor[$x] = 26;
+                continue;
+            }
+            $Buffor[$x] = $Buffor[$x]-1;
+        }
+    }
+   
+    
+    var_dump($Buffor);
+    
+
+
+    $reversBuffor = array_reverse($Buffor);
+
+   
+    $string = ""; 
+    foreach($Buffor as $value){
+        $string = $string.translate_number_to_letter($value);
+    } 
+    return $string;
     }
 
 
@@ -121,20 +116,22 @@ function translate_number_to_letter($number){
     return $lettersArray[$number];
 }
 
-/*
-$i = 1;
+
+
+
+
+
+$i = 0;
 while (TRUE){
-    
-    if (is_string(check_what_letter($i.".1"))){
-        echo check_what_letter($i.".1")."</br>";
-    }
-    if (!is_string(check_what_letter($i.".1"))){
-        echo implode("",check_what_letter($i.".1"))."</br>";
-    }
-     ;
+    echo check_what_letter($i.".1");
+    echo "</br>";
     $i++;
     if($i==17576){
+        
         break;
     }
 }
-*/
+
+
+
+

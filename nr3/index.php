@@ -1,4 +1,10 @@
 
+<script type="text/javascript">
+    function take_me_to_register(){
+        location.href = "register.php";
+    };
+</script>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,15 +15,14 @@
     <title>Billings</title>
 </head>
 <body>
-<form action="calendar.php" method="post">
-    Podaj date:</br>
-    <input name="data_time" value="1" autocorrect="off"></input>
-    <select name="data_type">
-    <option> Choose data type </option>
-    <option value="1">Epoh (Advance Option)</option>
-    <option value="2">MM/YYYY</option>
-    <option value="3">MM-YYYY</option></select>
+<form action="logic.php" method="post">
+    <h1>Zaloguj się</h2></br>
+    Podaj dane:</br>
+    Login<input name="login" value="1" autocorrect="off"></input></br>
+    Hasło<input type="password" name="password" value="1" autocorrect="off"></input>
     <input type="submit">
+    
 </form>
+<button id="register" onclick="take_me_to_register()">Zarejestruj się</button>
 </body>
 
